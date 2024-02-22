@@ -8,36 +8,45 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            /* 設置全局字體 */
             margin: 0;
-            /* 清除頁面預設邊距 */
             padding: 0;
-            /* 清除頁面預設內距 */
+            background-color: #f5f5f5;
+            /* 設置背景色 */
         }
 
         div {
-            margin: 20px;
-            /* 設置 div 元素的外邊距 */
+            margin: 20px auto;
+            /* 將 div 元素居中 */
+            max-width: 600px;
+            /* 設置最大寬度 */
+            padding: 20px;
+            background-color: #fff;
+            /* 設置區塊背景色 */
+            border-radius: 8px;
+            /* 圓角邊框 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* 添加陰影效果 */
         }
 
         a {
             display: block;
-            /* 將連結設置為塊級元素，讓它們以垂直排列 */
-            padding: 10px;
-            /* 設置連結內邊距 */
+            padding: 15px 20px;
+            /* 調整連結內邊距 */
+            margin-bottom: 10px;
+            /* 調整連結間距 */
             text-decoration: none;
-            /* 清除連結默認下劃線 */
             color: #333;
-            /* 設置連結文字顏色 */
-            background-color: #f0f0f0;
+            background-color: #f9f9f9;
             /* 設置連結背景色 */
-            border-bottom: 1px solid #ccc;
-            /* 添加連結之間的分隔線 */
+            border-radius: 5px;
+            /* 圓角邊框 */
+            transition: background-color 0.3s ease;
+            /* 添加平滑過渡效果 */
         }
 
         a:hover {
-            background-color: #ddd;
-            /* 鼠標懸停時變換背景色 */
+            background-color: #e0e0e0;
+            /* 滑鼠懸停時變換背景色 */
         }
     </style>
 </head>
