@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>模擬Microsoft</title>
+    <link rel="icon" href="./img/Microsoft_icon.svg.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -229,10 +230,11 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <picture>
+                        <source media="(min-width: 1400px)" srcset="./img/swiper-img/1_VP5-1920x600.webp">
                         <source media="(min-width: 1084px)" srcset="./img/swiper-img/1_VP4-1399x600.webp">
                         <source media="(min-width: 860px)" srcset="./img/swiper-img/1_VP3-1083x600.webp">
                         <source media="(min-width: 540px)" srcset="./img/swiper-img/1_VP2-859x540.webp">
-                        <img src="./img/swiper-img/1_VP5-1920x600.webp" alt="">
+                        <img src="../img/swiper-img/1_VP2-859x540.webp" alt="">
                     </picture>
                     <div class="swiper-text">
                         <div class="text-title">Surface Laptop 5</div>
@@ -242,10 +244,11 @@
                 </div>
                 <div class="swiper-slide test-1">
                     <picture>
+                        <source media="(min-width: 1400px)" srcset="./img/swiper-img/VP5-1920x600.webp">
                         <source media="(min-width: 1084px)" srcset="./img/swiper-img/VP4-1399x600.webp">
                         <source media="(min-width: 860px)" srcset="./img/swiper-img/VP3-1083x600.webp">
                         <source media="(min-width: 540px)" srcset="./img/swiper-img/VP2-859x540.webp">
-                        <img src="./img/swiper-img/VP5-1920x600.webp" alt="">
+                        <img src="./img/swiper-img/VP2-859x540.webp" alt="">
                     </picture>
                     <div class="swiper-text test-2">
                         <div class="text-title">Surface Pro 9</div>
@@ -365,8 +368,10 @@
         </section>
         <section class="container-normal one-photo">
             <!-- 大圖 -->
-            <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Highlight-Slim-Multi-Canvas-AEM-Game-Pass-Ultimate:VP5-1596x600"
-                alt="">
+            <picture>
+                <source media="(max-width: 1100px)" srcset="./img/Highlight-Slim-Multi-Canvas-AEM-Game-Pass-Ultimate_VP2-859x540.webp">
+                <img src="./img/swiper-img/Highlight-Slim-Multi-Canvas-AEM-Game-Pass-Ultimate_VP5-1596x600.jfif" alt="">
+            </picture>
             <div class="one-photo-text">
                 <div class="text-title one-photo-title">Xbox Game Pass Ultimate</div>
                 <div class="text-content one-photo-content">在首發日遊玩新遊戲。再加上在主機和電腦上與朋友一起享受數百款高品質遊戲</div>
@@ -554,7 +559,6 @@
                 <i class="fa-solid fa-earth-americas"></i><span>中文(台灣)</span>
                 <img src="./img/加州消費者隱私權法案 (CCPA) 退出圖示.svg" alt=""><span>您的隱私選擇</span>
 
-
                 <div class="nav-right">
                     <span>連絡 Microsoft</span>
                     <span>隱私權</span>
@@ -572,7 +576,7 @@
     <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper(".mySwiper", {
-            autoplay: true,
+            // autoplay: true,
             loop: true,
             navigation: {
                 nextEl: ".swiper-button-next",

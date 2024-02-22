@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            background-color: rgb(230, 230, 230);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            margin-right: 100px;
+        }
+
+        .box-1 {
+            background: linear-gradient(green, lightgreen);
+            background-color: gray;
+            box-shadow: 1px 1px 1px 30px silver;
+
+        }
+
+        .box-2 {
+            background:
+                linear-gradient(45deg, #f00 50%, transparent 50%) 0 0/50% 50%,
+                linear-gradient(90deg, #f90 50%, transparent 50%) 0 0/100% 50%,
+                linear-gradient(135deg, #fe0 50%, transparent 50%) 100% 0/50% 50%,
+                linear-gradient(180deg, #0c6 50%, transparent 50%),
+                linear-gradient(225deg, #09f 50%, transparent 50%),
+                linear-gradient(270deg, #05c 50%, transparent 50%) -50% -50%,
+                linear-gradient(315deg, #95c 50%, transparent 50%),
+                linear-gradient(360deg, #60a 50%, transparent 50%);
+            background-repeat: no-repeat;
+        }
+
+        .box-3 {
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 25%,
+                    #fff 0, #ccc 20%, #999 40%, #000 90%, #666 95%, #999 100%);
+        }
+
+        .box-4 {
+            border-radius: 50%;
+            background: conic-gradient(#fc0 0, #fc0 72deg, #05c 72deg, #05c 144deg,
+                    #60a 144deg, #60a 216deg, #50f 216deg, #50f 288deg, #10f 288deg, #10f 0);
+        }
+
+        .box-5 {
+            background: repeating-radial-gradient(circle,
+                    #000 0, #000 5%,
+                    #f90 5%, #f90 10%,
+                    #a50 18%);
+        }
+
+        .box-6 {
+            background: repeating-conic-gradient(#fff 0,
+                    #fff 90deg,
+                    #000 90deg,
+                    #000 180deg);
+            background-size: 50% 50%
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box box-1">
+
+    </div>
+    <div class="box box-2"></div>
+    <div class="box-3 box"></div>
+    <div class="box box-4"></div>
+    <div class="box box-5"></div>
+    <div class="box box-6"></div>
+</body>
+
+</html>
