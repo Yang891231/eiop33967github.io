@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天氣卡</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .card-regin {
+            width: 80%;
+            margin-left: 10%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 30%;
+            margin-right: 50px;
+            margin-bottom: 50px;
+            height: 500px;
+            border: 1px solid black;
+            border-radius: 20px;
+            background: linear-gradient(rgb(197, 162, 246), rgb(127, 92, 186));
+            text-align: center;
+            position: relative;
+        }
+
+        .card img {
+            width: 32px;
+        }
+
+        .btn-all {
+            border-top: 10px dotted lightblue;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 10px dotted lightblue;
+            width: 80%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width:1400px) {
+            .card {
+                font-size: 24px;
+                width: 40%;
+            }
+
+            .btn-all .btn {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width:880px) {
+            .card {
+                font-size: 20px;
+                width: 70%;
+                margin: auto;
+                margin-bottom: 20px;
+            }
+
+            .btn-all .btn {
+                width: calc(100% / 6 - 10px);
+                height: 70px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width:400px) {
+            .card {
+                font-size: 20px;
+                width: 80%;
+                margin: auto;
+                margin-bottom: 20px;
+            }
+        }
+
+        .btn {
+            width: calc(100% / 6 - 30px);
+            height: 50px;
+            font-size: 36px;
+        }
+
+        .header {
+            font-size: 64px;
+            text-align: center;
+            color: lightskyblue;
+            margin-bottom: 30px;
+        }
+
+        .card .icon-wx {
+            width: 100px;
+            height: 100px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">全臺天氣</div>
+    <div class="btn-all">
+        <button class="btn">全省</button>
+        <button class="btn">北部</button>
+        <button class="btn">中部</button>
+        <button class="btn">南部</button>
+        <button class="btn">東部</button>
+        <button class="btn">離島</button>
+    </div>
+
+    <div class="card-regin"></div>
+
+    <script>
+        let btnAll = document.querySelectorAll('.btn');
+
+        let cities = [
+            ['基隆市', '新北市', '臺北市', '桃園市', '新竹市', '新竹縣', '苗栗縣', '臺中市', '南投縣', '彰化縣', '雲林縣', '嘉義市', '嘉義縣', '臺南市', '高雄市', '屏東縣', '宜蘭縣', '花蓮縣', '臺東縣', '澎湖縣', '金門縣', '連江縣'],
+            ['基隆市', '新北市', '臺北市', '桃園市', '新竹市', '新竹縣', '苗栗縣'],
+            ['臺中市', '南投縣', '彰化縣', '雲林縣', '嘉義市', '嘉義縣'],
+            ['臺南市', '高雄市', '屏東縣'],
+            ['宜蘭縣', '花蓮縣', '臺東縣'],
+            ['澎湖縣', '金門縣', '連江縣'],
+        ];
+        let nowCities = cities[0];
+        let orgdata = {};
+        let url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-C516C435-C45D-4EB4-A2EB-3DD46F3273ED';
+
+        function fetch_data() {
+
+            fetch(url)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (datas) {
+                    
+                    // 1. 組織資料
+                    organizeData(datas);
+
+                    // 2. 處理城市
+                    processCity();
+                });
+        }
+
+        fetch_data();
+
+        btnAll.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                nowCities = cities[index];
+                fetch_data();
+            });
+        });
+
+
+        function organizeData(data) {
+            let locationAll = data.records.location;
+            locationAll.forEach((location) => {
+                let cityAll = location.locationName;
+
+                let cityWXele = location.weatherElement[0].time[0];
+                let cityWx = cityWXele.parameter.parameterName;
+                let WxstartTime = cityWXele.startTime;
+                let WxendTime = cityWXele.endTime;
+
+                let cityMaxT = location.weatherElement[4].time[1];
+                let MaxTParameterName = cityMaxT.parameter.parameterName;
+
+                let cityMinT = location.weatherElement[2].time[1];
+                let MinTParameterName = cityMinT.parameter.parameterName;
+
+                let cityPop = location.weatherElement[1].time[0];
+                let cityPopPrecent = cityPop.parameter.parameterName;
+
+                let cityCI = location.weatherElement[3].time[0];
+                let myCI = cityCI.parameter.parameterName;
+
+                orgdata[cityAll] = {
+                    wx: cityWx,
+                    MaxT: MaxTParameterName,
+                    MinT: MinTParameterName,
+                    Pop: cityPopPrecent,
+                    CI: myCI
+                }
+            });
+        }
+
+        function processCity() {
+            let regin = document.querySelector('.card-regin');
+            regin.innerHTML = '';
+            nowCities.forEach((city, index) => {
+                let citydata = orgdata[city];
+                regin.innerHTML += `<div class="card">${city} <br><br><img src="./img/icons/${citydata.wx}.svg" alt="" class="icon-wx"><br><br> ${citydata.wx}  <br>
+                 <img src="./img/icons/2682808_temperature_high_hot_weather_termometer_summer.svg" alt=""> 溫度 : ${citydata.MinT} <sup>。</sup>C ~ ${citydata.MaxT}<sup>。</sup>C <br><br> <img src="./img/umbrella.png" alt=""> 降雨機率 : ${citydata.Pop} % <br><br> ${citydata.CI}</div>`;
+            })
+        }
+    </script>
+</body>
+
+</html>

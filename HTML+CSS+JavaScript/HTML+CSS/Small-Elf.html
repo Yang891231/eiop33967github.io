@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小精靈</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-top: 150px;
+            background-color: gray;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        .box {
+            width: 0px;
+            height: 0px;
+            border-radius: 100px;
+            border: 100px solid wheat;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            position: relative;
+            transform: rotate(130deg);
+            animation-name: top-eat;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
+        @keyframes top-eat {
+            0%{
+                transform: translateX(0%) rotate(130deg);
+            }
+            50%{
+                transform: translateX(200px) rotate(130deg);
+            }
+            100%{
+                transform: translateX(0%) rotate(490deg);
+            }
+        }
+
+        .box::before {
+            content: "";
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border-radius: 100px;
+            border: 100px solid wheat;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            transform: translate(-50% , -50%) rotate(40deg);
+            animation-name: bottom-eat;
+            animation-duration: 0.8s;
+            animation-iteration-count: infinite;
+        }
+
+        .box::after {
+            position: absolute;
+            right: 40px;
+            top: -20px;
+            width: 25px;
+            height: 25px;
+            content: "";
+            border-radius: 50%;
+            background-color: black;
+        }
+        
+
+        @keyframes bottom-eat {
+            0%{
+                transform: translate(-50% , -50%) rotate(40deg);
+            }
+            50%{
+                transform: translate(-50% , -50%) rotate(70deg);
+            }
+            100%{
+                transform: translate(-50% , -50%) rotate(40deg);
+            }
+        }
+
+        .box-2 {
+            position: relative;
+            left: 50px;
+            bottom: -100px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: darkblue;
+            animation-name: run;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
+        @keyframes run {
+            0%{
+                transform: translateX(0%) translateY(0%);
+            }
+            40%{
+                transform: translateX(50px);
+                background-color: transparent;
+            }
+            100%{
+                transform: translateX(0%) translateY(0%);
+                background-color: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <div class="box-2"></div>
+</body>
+
+</html>

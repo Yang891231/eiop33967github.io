@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜拳遊戲</title>
+    <style>
+        body {
+            background-color: rgb(200, 200, 200);
+            font-size: 32px;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translate(1px, 1px) rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-1px, -2px) rotate(-1deg);
+            }
+
+            20% {
+                transform: translate(-3px, 0px) rotate(1deg);
+            }
+
+            30% {
+                transform: translate(3px, 2px) rotate(0deg);
+            }
+
+            40% {
+                transform: translate(1px, -1px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-1px, 2px) rotate(-1deg);
+            }
+
+            60% {
+                transform: translate(-3px, 1px) rotate(0deg);
+            }
+
+            70% {
+                transform: translate(3px, 1px) rotate(-1deg);
+            }
+
+            80% {
+                transform: translate(-1px, -1px) rotate(1deg);
+            }
+
+            90% {
+                transform: translate(1px, 2px) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(1px, -2px) rotate(-1deg);
+            }
+        }
+
+        .btn {
+            width: 200px;
+            height: 200px;
+        }
+
+        .my-result,
+        .pc-result {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .img {
+            width: 100%;
+        }
+
+        .result {
+            width: 200px;
+            height: 50px;
+        }
+
+        .img:hover {
+            animation: shake 0.5s;
+            animation-iteration-count: 2;
+        }
+
+        .myself {
+            margin-bottom: 30px;
+        }
+        .pc-result{
+            animation: run 0.5s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes run {
+            0%{
+                background: url("./img/剪刀.png");
+                background-size: cover;
+            }
+            50%{
+                background: url("./img/石頭.png");
+                background-size: cover;
+            }
+            100%{
+                background: url("./img/布.png");
+                background-size: cover;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <span> 電腦 :</span>
+    <div class="pc-result">
+        <img src="" alt="" class="pc-img img">
+    </div>
+
+    <span>自己 :</span>
+    <div class="my-result">
+        <img src="" alt="" class="my-img img">
+    </div>
+
+    <div class="myself">
+        <button class="btn scissors"><img src="./img/剪刀.png" alt="" class="img"></button>
+        <button class="btn stone"><img src="./img/石頭.png" alt="" class="img"></button>
+        <button class="btn spread"><img src="./img/布.png" alt="" class="img"></button>
+    </div>
+    <div>結果 : <span class="result"></span></div>
+    <script>
+
+        let scissors = document.querySelector('.scissors');
+        let stone = document.querySelector('.stone');
+        let spread = document.querySelector('.spread');
+        let result = document.querySelector('.result');
+        let myImg = document.querySelector('.my-img');
+        let pcImg = document.querySelector('.pc-img');
+        
+        let object = ['剪刀', '石頭', '布'];
+        scissors.addEventListener('click', () => {
+            myComparison(0);
+        })
+
+        stone.addEventListener('click', () => {
+            myComparison(1);
+        })
+
+        spread.addEventListener('click', () => {
+            myComparison(2);
+        })
+        function myComparison(type) {
+            
+            let pc = Math.floor(Math.random() * 3);
+            pcImg.src = `./img/${object[pc]}.png`;
+            myImg.src = `./img/${object[type]}.png`;
+
+            // 0 : 剪刀 1 : 石頭 2 : 布 
+
+            if (pc == type) {
+                result.innerHTML = '平手';
+            }
+            else if(pc - type == 1 || pc - type == -2){
+                result.innerHTML = '你輸了';
+            }else{
+                result.innerHTML = '你贏了';
+            }
+
+        }
+    </script>
+</body>
+
+</html>

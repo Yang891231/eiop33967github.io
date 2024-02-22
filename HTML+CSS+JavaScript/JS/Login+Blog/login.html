@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部落格登入</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(200, 200, 200);
+        }
+
+        .box {
+            width: 500px;
+            height: 500px;
+            margin: 100px auto;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            font-size: 32px;
+        }
+
+        .btn {
+            font-size: 24px;
+        }
+
+        input {
+            line-height: 24px;
+            font-size: 20px;
+        }
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>部落格</h1>
+        <div>帳號：<input type="text" class="account"></div>
+        <div>密碼：<input type="password" class="password"></div>
+        <div>
+            <button class="Login-btn btn" type="button">登入</button>
+            <button class="register btn" type="button">註冊</button>
+        </div>
+    </div>
+    <div class="box hidden">
+        <h1>部落格註冊</h1>
+        <div>註冊帳號：<input type="text" class="regist-account"></div>
+        <div>註冊密碼：<input type="password" class="regist-password"></div>
+        <div>
+            <button class="return-btn btn" type="button">回首頁</button>
+            <button class="register-btn btn" type="button">完成註冊</button>
+        </div>
+    </div>
+
+    <script>
+        let box = document.querySelectorAll('.box');
+        let registerBtn = document.querySelector('.register-btn');
+        let register = document.querySelector('.register');
+        let myReturn = document.querySelector('.return-btn');
+        let myAccount = document.querySelector('.regist-account');
+        let myPassword = document.querySelector('.regist-password');
+        let myLogin = document.querySelector('.Login-btn');
+        let myRegist = [];
+
+        register.addEventListener('click', function () {
+            box[0].classList.add('hidden');
+            box[1].classList.remove('hidden');
+        });
+
+        myReturn.addEventListener('click', function () {
+            box[1].classList.add('hidden');
+            box[0].classList.remove('hidden');
+        });
+        if (localStorage.getItem("a")) {
+            arr = JSON.parse(localStorage.getItem('a'));
+            myRegist = arr;
+        }
+
+        registerBtn.addEventListener('click', function () {
+            if (myAccount.value != '' || myPassword.value != '') {
+                let regist = {
+                    account: myAccount.value,
+                    password: myPassword.value,
+                };
+                let check = myRegist.findIndex(item => item.account == myAccount.value);
+                if (check == -1) {
+                    myRegist.push(regist);
+
+                    myAccount.value = '';
+                    myPassword.value = '';
+                    box[1].classList.add('hidden');
+                    box[0].classList.remove('hidden');
+                    alert('完成註冊!!');
+
+                    let arrData = JSON.stringify(myRegist);
+                    localStorage.setItem('a', arrData);
+                }else{
+                    alert('帳號已重複請更換一個')
+                }
+
+            } else {
+                alert('請輸入帳號密碼');
+            }
+        });
+
+        myLogin.addEventListener('click', function () {
+            let myAccount = document.querySelector('.account');
+            let myPassword = document.querySelector('.password');
+    
+            let registFind = myRegist.findIndex((item) => myAccount.value == item.account && myPassword.value == item.password);
+            if (registFind != -1) {
+                let arrData = JSON.stringify(myRegist[registFind].account);
+                localStorage.setItem('user', arrData);
+                window.location.assign("http://127.0.0.1:5500/%E7%99%BB%E5%85%A5+%E9%83%A8%E8%90%BD%E6%A0%BC/blog.html");
+                alert('登入成功');
+                
+            }else{
+                alert('請輸入正確帳號密碼');
+            }
+            if (myRegist.length <= 0) {
+                alert('請輸入正確帳號密碼');
+            }
+        })
+        // localStorage.removeItem('a');
+    </script>
+</body>
+
+</html>

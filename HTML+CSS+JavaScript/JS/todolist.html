@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代辦事項</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 24px;
+            background-color: rgb(200, 200, 200);
+        }
+
+        .container {
+            width: 50%;
+            height: 80vh;
+            border: 1px solid black;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .input-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .title {
+            display: flex;
+            width: 100px;
+            height: 50px;
+            font-size: 28px;
+            border: 2px solid black;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .all-title {
+            display: flex;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .title-bgc {
+            background-color: aquamarine;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .quest {
+            width: calc(100% - 130px);
+            font-size: 28px;
+            line-height: 35px;
+            margin-right: 20px;
+        }
+
+        .add-quest {
+            font-size: 16px;
+            width: 50px;
+            height: 50px;
+            background: url(./img/add.png);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border: 0px;
+        }
+
+        .add-quest:hover {
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            padding-bottom: 10px;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        thead {
+            border-bottom: 1px solid black;
+        }
+
+        button {
+            margin-top: 10px;
+            font-size: 24px;
+        }
+
+        input {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            font-size: 28px;
+        }
+
+        .w-3 {
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-item">
+            <input type="text" class="quest" placeholder="請填寫事項(最多15字)" maxlength="15">
+            <button class="add-quest"></button>
+        </div>
+        <div class="all-title">
+            <div class="title title-bgc" data-title="all">全部</div>
+            <div class="title" data-title="do">已執行</div>
+            <div class="title" data-title="not-to-do">未執行</div>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="w-3">執行</th>
+                        <th>事項</th>
+                        <th class="w-3">功能</th>
+                    </tr>
+                </thead>
+                <tbody c>
+                    <!-- <tr>
+                        <td><input type="checkbox">onclick = mycheck(${item.id})</td>
+                        <td>XXX</td>
+                        <td><button>編輯</button><button>刪除</button></td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <script>
+        const titles = document.querySelectorAll('.title');
+        let check = document.querySelector('.check');
+        let quest = document.querySelector('.quest');
+        let addQuest = document.querySelector('.add-quest');
+        let questList = document.querySelector('.quest-list');
+
+        let arr = [];
+        // JSON格式轉換
+        // let mytext = JSON.stringify(arr);
+        // let JsonText = JSON.parse(mytext);
+        // console.log(mytext);
+        // console.log(JsonText);
+
+        if (localStorage.getItem("todoList")) {
+            arr = JSON.parse(localStorage.getItem('todoList'));
+            outputArr(arr);
+        }
+
+
+        titles.forEach((item) => {
+            item.addEventListener('click', () => {
+                titles.forEach((e) => {
+                    e.classList.remove('title-bgc');
+                })
+                item.classList.add('title-bgc');
+
+                questList.innerHTML = '';
+                const titleData = item.dataset.title;
+
+                if (titleData === 'all') {
+                    outputArr(arr);
+                }
+                else if (titleData === 'do') {
+                    arr.forEach((item) => {
+                        if (item.text != '' && item.check == true) {
+                            questList.innerHTML += `<tr>
+                            <td><input type="checkbox" onclick = mycheck(${item.id}) checked></td>
+                            <td>${item.text}</td>
+                            <td>
+                                <button onclick = editText(${item.id})>編輯</button>
+                                <button onclick = myDelete(${item.id})>刪除</button>
+                            </td>
+                            </tr>`;
+                        }
+                    })
+                }
+                else {
+                    arr.forEach((item) => {
+                        if (item.text != '' && item.check == false) {
+                            questList.innerHTML += `<tr>
+                            <td><input type="checkbox" onclick = mycheck(${item.id})></td>
+                            <td>${item.text}</td>
+                            <td>
+                                <button onclick = editText(${item.id})>編輯</button>
+                                <button onclick = myDelete(${item.id})>刪除</button>
+                            </td>
+                            </tr>`;
+                        }
+                    })
+                }
+            })
+        })
+        function outputArr(arr) {
+            arr.forEach((item) => {
+                if (item.text != '') {
+                    questList.innerHTML += `<tr>
+                        <td><input type="checkbox" onclick = mycheck(${item.id}) ${item.check == true ? 'checked' : ''}></td>
+                        <td>${item.text}</td>
+                        <td>
+                            <button onclick = editText(${item.id})>編輯</button>
+                            <button onclick = myDelete(${item.id})>刪除</button>
+                        </td>
+                    </tr>`;
+                }
+            });
+            let a = "todoList";
+            let arrData = JSON.stringify(arr);
+            localStorage.setItem(a , arrData);
+        }
+        function mycheck(id) {
+            const index = arr.findIndex(item => item.id === id);
+            arr[index].check = !arr[index].check;
+            let arrData = JSON.stringify(arr);
+            localStorage.setItem("todoList", arrData);
+        }
+        
+        quest.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                addQuest.click();
+            }
+        });
+
+        addQuest.onclick = function add() {
+            if (quest.value !== '') {
+                let lastid = arr[arr.length - 1].id;
+                let addArr =
+                {
+                    id: lastid + 1,
+                    check: false,
+                    text: quest.value,
+                };
+                arr.push(addArr);
+                questList.innerHTML = '';
+                titles.forEach((e) => {
+                    e.classList.remove('title-bgc');
+                })
+                titles[0].classList.add('title-bgc');
+                outputArr(arr);
+            } else {
+                alert('請輸入事項');
+            }
+            quest.value = '';
+        }
+
+        function myDelete(id) {
+            if (confirm('是否要刪除') == true) {
+                event.target.closest('tr').remove();
+                const index = arr.findIndex(item => item.id === id);
+                arr.splice(index, 1);
+                let arrData = JSON.stringify(arr);
+                localStorage.setItem("todoList", arrData);
+            }
+        }
+        function editText(id) {
+            const myEdit = prompt('修改事項');
+            if (myEdit == null || myEdit != '') {
+                const index = arr.findIndex(item => item.id === id);
+                arr[index].text = myEdit;
+                questList.innerHTML = '';
+                outputArr(arr);
+            } else {
+                alert('請輸入修改事項');
+            }
+
+        }
+    </script>
+</body>
+
+</html>

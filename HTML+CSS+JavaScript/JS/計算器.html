@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: gray;
+            margin: 0;
+            height: 100vh;
+            font-size: 24px;
+            margin-left: 40px;
+        }
+
+        .score {
+            margin-right: 10px;
+        }
+
+        input {
+            width: 200px;
+            height: 25px;
+            font-size: 14px;
+        }
+
+        .btn {
+            width: 100px;
+            height: 50px;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        數值A : <input type="number" min="0" max="100" class="num num-1">
+    </p>
+    <p>
+        數值B : <input type="number" min="0" max="100" class="num num-2">
+    </p>
+    <button class="btn add">加法 +</button>
+    <button class="btn reduce">減法 -</button>
+    <button class="btn multiply">乘法 *</button>
+    <button class="btn Divided-by">除法 /</button>
+    <button class="btn clear">清空</button>
+    <div>
+        <p>
+            結果 : <span class="result"> </span>
+        </p>
+    </div>
+    <script>
+        let numA = document.querySelector('.num-1');
+        let numB = document.querySelector('.num-2');
+        let addBtn = document.querySelector('.add');
+        let reduceBtn = document.querySelector('.reduce');
+        let multiplyBtn = document.querySelector('.multiply');
+        let dividedbyBtn = document.querySelector('.Divided-by');
+        let clearBtn = document.querySelector('.clear');
+        let result = document.querySelector('.result');
+
+        clearBtn.addEventListener('click', function () {
+            numA.value = '';
+            numB.value = '';
+            result.innerHTML = '';
+        })
+        addBtn.addEventListener('click', function () {
+            let add = numA.value * 1 + numB.value * 1;
+            result.innerHTML = add;
+        })
+        reduceBtn.addEventListener('click', function () {
+            let reduce = numA.value * 1 - numB.value * 1;
+            result.innerHTML = reduce;
+        })
+        multiplyBtn.addEventListener('click', function () {
+            let multiply = numA.value * 1 * numB.value * 1;
+            result.innerHTML = multiply;
+        })
+        dividedbyBtn.addEventListener('click', function () {
+            let dividedby = (numA.value * 1) / (numB.value * 1);
+            result.innerHTML = dividedby.toFixed(2);
+        })
+    </script>
+</body>
+
+</html>

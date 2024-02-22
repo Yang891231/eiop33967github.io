@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgba(128, 128, 128, 0.6);
+        }
+
+        .ham-menu {
+            /* label 為行內層級 */
+            display: inline-block;
+            width: 10vh;
+            height: 10vh;
+            background-color: aqua;
+            position: relative;
+        }
+
+        /* 空一格 後代 => 後代選擇器*/
+        .ham-menu .line {
+            background-color: rgba(25, 25, 25, 1);
+            width: 80%;
+            height: 1vh;
+            position: absolute;
+            left: 50%;
+            top: 25%;
+            transform: translate(-50%, -50%);
+            transition: 800ms;
+        }
+
+        .ham-menu #line-2 {
+            top: 50%;
+        }
+
+        .ham-menu #line-3 {
+            top: 75%;
+        }
+
+        /* "+" 選後面相鄰元素(一定只有一個) */
+        #menu-switch:checked+.ham-menu #line-1 {
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        #menu-switch:checked+.ham-menu #line-2 {
+            display: none;
+        }
+
+        #menu-switch:checked+.ham-menu #line-3 {
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        #all-link {
+            width: 150px;
+            display: none;
+            transition: 1s;
+        }
+        #menu-switch:checked ~ #all-link{
+            display:block;
+        }
+
+        .link {
+            background-color: antiquewhite;
+            margin-bottom: 12px;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 24px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" id="menu-switch" hidden>
+    <label for="menu-switch" class="ham-menu">
+        <div id="line-1" class="line"></div>
+        <div id="line-2" class="line"></div>
+        <div id="line-3" class="line"></div>
+    </label>
+    <div id="all-link">
+        <div id="hyperlink-1" class="link">Google</div>
+        <div id="hyperlink-2" class="link">Gmail</div>
+        <div id="hyperlink-3" class="link">YouTube</div>
+    </div>
+</body>
+
+</html>

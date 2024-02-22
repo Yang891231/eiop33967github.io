@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>色弱測試</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background-color: gray;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .box-big {
+            width: 600px;
+            height: 600px;
+            background-color: #d3d3d3;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 10px;
+        }
+
+        .mytime {
+            margin-bottom: 40px;
+        }
+
+        .box {
+            width: 50%;
+            height: 50%;
+            background-color: rgb(0, 255, 255);
+            border: 5px solid #d3d3d3;
+            border-radius: 20px;
+        }
+
+        .play-game {
+            display: none;
+        }
+
+        .home-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+
+        .show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            width: 150px;
+            height: 50px;
+            font-size: 32px;
+        }
+
+        .btn-all {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .my-return {
+            margin-right: 20px;
+        }
+
+        .logo {
+            border-radius: 10px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="home-page">
+        <div class="logo">
+            <h1>色弱測試</h1>
+        </div>
+        <button class="my-start">開始</button>
+    </div>
+    <div class="play-game">
+        <p class="mytime"></p>
+        <div class="box-big"></div>
+        <div class="btn-all">
+            <button class="my-return">重新開始</button>
+            <button class="wait">暫停</button>
+            <button class="continue-game hidden">繼續</button>
+        </div>
+    </div>
+
+    <script>
+
+        let boxBig = document.querySelector('.box-big');
+        let timeOut = document.querySelector('.mytime');
+        let level = 2;
+        let count = 0;
+        let myTimeOut;
+        let timer;
+        let myStart = document.querySelector('.my-start');
+        let playGame = document.querySelector('.play-game');
+        let homePage = document.querySelector('.home-page');
+        let wait = document.querySelector('.wait');
+        let myReturn = document.querySelector('.my-return');
+        let myContinue = document.querySelector('.continue-game');
+
+        function createBox() {
+            resetTime();
+            timeOut.innerHTML = `關卡 : ${level - 1}-${count + 1}<br>剩餘時間 : ${myTimeOut} 秒`;
+            timer = setInterval(Mytimer, 1000);
+            boxBig.innerHTML = '';
+            let addorReduce = Math.floor(Math.random() * 2);
+            let add = 15;
+            let red = Math.floor(Math.random(Math.random()) * 80 + 100);
+            let green = Math.floor(Math.random(Math.random()) * 80 + 100);
+            let blue = Math.floor(Math.random(Math.random()) * 80 + 100);
+            let randomColor = `rgb( ${red} , ${green} , ${blue})`;
+            let randomValue = Math.floor(Math.random() * level ** 2);
+
+            for (let i = 0; i < level ** 2; i++) {
+                boxBig.innerHTML = boxBig.innerHTML + `<div class="box"></div>`;
+                let boxAll = document.querySelectorAll('.box');
+                boxAll[i].style.width = 100 / level + '%';
+                boxAll[i].style.height = 100 / level + '%';
+                boxAll[i].style.backgroundColor = randomColor;
+            }
+
+            let boxAll = document.querySelectorAll('.box');
+            boxAll[randomValue].classList.add('answer');
+            let answer = document.querySelector('.answer');
+            if (addorReduce > 0) {
+                randomColor = `rgb( ${red + add - level} , ${green + add - level} , ${blue + add - level})`;
+                answer.style.backgroundColor = randomColor;
+            } else {
+                randomColor = `rgb( ${red - add + level} , ${green - add + level} , ${blue - add + level})`;
+                answer.style.backgroundColor = randomColor;
+            }
+        }
+
+        myStart.addEventListener('click', () => {
+            playGame.classList.remove('hidden');
+            playGame.classList.add('show');
+            homePage.classList.add('hidden');
+            boxBig.classList.add('show');
+            boxBig.classList.remove('hidden');
+            myContinue.classList.add('hidden');
+            myContinue.classList.remove('show');
+            wait.classList.add('show');
+            wait.classList.remove('hidden');
+            createBox();
+        })
+
+        myReturn.addEventListener('click', () => {
+            playGame.classList.remove('show');
+            playGame.classList.add('hidden');
+            homePage.classList.remove('hidden');
+            homePage.classList.add('show');
+            resetTime();
+            level = 2;
+            count = 0;
+        })
+
+        wait.addEventListener('click', () => {
+            clearInterval(timer);
+            wait.classList.add('hidden');
+            myContinue.classList.add('show');
+            myContinue.classList.remove('hidden');
+            boxBig.classList.add('hidden');
+            boxBig.classList.remove('show');
+        })
+
+        myContinue.addEventListener('click', () => {
+            timer = setInterval(Mytimer, 1000);
+            wait.classList.add('show');
+            wait.classList.remove('hidden');
+            myContinue.classList.add('hidden');
+            myContinue.classList.remove('show');
+            boxBig.classList.remove('hidden');
+            boxBig.classList.add('show');
+        })
+
+        function resetTime() {
+            myTimeOut = 20;
+            clearInterval(timer);
+            timeOut.innerHTML = '';
+        }
+
+        boxBig.addEventListener('click', function () {
+            if (event.target.classList.contains('answer')) {
+                count++;
+                if (level == count) {
+                    level++;
+                    count = 0;
+                    createBox();
+                } else {
+                    createBox();
+                }
+                if (level == 7) {
+                    alert('恭喜完成所有關卡');
+                    level = 2;
+                    resetTime();
+                    homePage.classList.remove('hidden');
+                    homePage.classList.add('show');
+                    playGame.classList.add('hidden');
+                }
+                if (level > 6) {
+                    boxBig.style.width = '800px';
+                    boxBig.style.height = '800px';
+                } else {
+                    boxBig.style.width = '600px';
+                    boxBig.style.height = '600px';
+                }
+            }
+        })
+
+        function Mytimer() {
+            timeOut.innerHTML = `關卡 : ${level - 1}-${count + 1}<br>剩餘時間 : ${myTimeOut} 秒`;
+            if (myTimeOut == 0) {
+                alert('失敗');
+                level = 2;
+                resetTime();
+                createBox();
+            }
+            myTimeOut--;
+        }
+    </script>
+
+</body>
+
+</html>

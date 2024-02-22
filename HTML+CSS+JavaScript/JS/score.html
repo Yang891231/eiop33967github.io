@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成績計算</title>
+    <style>
+        body {
+            background-color: gray;
+            margin: 0;
+            height: 100vh;
+            font-size: 24px;
+            margin-left: 40px;
+        }
+
+        .score {
+            margin-right: 10px;
+        }
+
+        input {
+            width: 200px;
+            height: 25px;
+        }
+
+        .btn {
+            width: 100px;
+            height: 50px;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <p>
+        請輸入國文成績 : <input type="number" min="0" max="100" class="score chinese">
+    </p>
+    <p>
+        請輸入英文成績 : <input type="number" min="0" max="100" class="score english">
+    </p>
+    <p>
+        請輸入數學成績 : <input type="number" min="0" max="100" class="score math">
+    </p>
+
+    <button class="btn clear">清空</button>
+    <button class="btn calculate">計算</button>
+
+
+    <div>
+        <p>
+            平均分數為 : <span class="average"> </span>
+        </p>
+    </div>
+
+    <div>
+        <p>
+            結果 : <span class="result"> </span>
+        </p>
+    </div>
+    <div>
+        <p>
+            等級 : <span class="grade"> </span>
+        </p>
+    </div>
+
+    <!-- 是否及格
+       平均分數:等級A(90UP) B(80UP) C(70UP) D(60UP) 不及格 => 死當 -->
+    <script>
+
+        let chinese = document.querySelector('.chinese');
+        let english = document.querySelector('.english');
+        let math = document.querySelector('.math');
+        let clearBtn = document.querySelector('.clear');
+        let calculate = document.querySelector('.calculate');
+        let average = document.querySelector('.average');
+        let result = document.querySelector('.result');
+        let grade = document.querySelector('.grade');
+
+
+        calculate.addEventListener('click', function () {
+            let a = 1;
+            let cScore = chinese.value;
+            let eScore = english.value;
+            let mScore = math.value;
+            let averageScore = (cScore * a + eScore * a + mScore * a) / 3;
+            let gradeText = '';
+
+            average.innerHTML = averageScore.toFixed(2);
+
+            if (averageScore >= 90) {
+                gradeText = 'A';
+            } else if (averageScore >= 80) {
+                gradeText = 'B';
+            } else if (averageScore >= 70) {
+                gradeText = 'C';
+            } else if (averageScore >= 60) {
+                gradeText = 'D';
+            } else {
+                gradeText = '死當';
+            }
+            grade.innerHTML = gradeText;
+
+            if (gradeText === '死當') {
+                result.innerHTML = '不及格';
+            } else {
+                result.innerHTML = '及格';
+            }
+        })
+
+        clearBtn.addEventListener('click', function () {
+            chinese.value = '';
+            english.value = '';
+            math.value = '';
+            average.innerHTML = '';
+            result.innerHTML = '';
+            grade.innerHTML = '';
+        })
+    </script>
+</body>
+
+</html>

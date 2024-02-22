@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo</title>
+    <style>
+        body{
+            background-color: gray;
+            margin: 0;
+            height: 3000px;
+        }
+        #nav{
+            background-color: rgb(28, 21, 21);
+            width: 100%;
+            height: 80px;
+            /* 固定式 */
+            position: fixed;
+            /* 圖層 */
+            z-index: 9;
+        }
+        #nav-circle-1{
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-1.svg);
+            left: 20px;
+            top: 15px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #nav-search{
+            width: 200px;
+            height: 40px;
+            position: fixed;
+            background-color: rgb(50, 50, 50);
+            left: 100px;
+            top: 20px;
+            border-radius: 5px;
+        }
+        #search1{
+            width: 30px;
+            height: 30px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-3.svg);
+            left: 100px;
+            top: 25px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #search1:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+        #nav-circle-friends{
+            width: 40px;
+            height: 40px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-5.svg);
+            left: 34%;
+            top: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #nav-circle-video{
+            width: 40px;
+            height: 40px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-6.svg);
+            left: 42%;
+            top: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #nav-circle-shop{
+            width: 40px;
+            height: 40px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-7.svg);
+            left: 50%;
+            top: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #nav-circle-5{
+            width: 40px;
+            height: 40px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-8.svg);
+            left: 58%;
+            top: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        #nav-circle-7{
+            width: 25px;
+            height: 25px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-12.svg);
+            right: 9%;
+            top: 25px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #nav-circle-8{
+            width: 25px;
+            height: 25px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-14.svg);
+            right: 13%;
+            top: 25px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #nav-circle-9{
+            width: 30px;
+            height: 30px;
+            position: fixed;
+            background-image: url(./svg-export/CAT.jpg);
+            right: 1%;
+            top: 23px;
+            border-radius: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #nav-circle-friends:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+        #nav-circle-video:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+        #nav-circle-shop:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+        #nav-circle-5:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+        #notify:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+        #nav-circle-7:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+        #nav-circle-8:hover{
+            background-color: rgb(80, 80, 80);
+            border-radius: 50%;
+        }
+
+        #notify{
+            width: 25px;
+            height: 25px;
+            position: fixed;
+            background-image: url(./svg-export/svgexport-11.svg);
+            right: 5%;
+            top: 25px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #all{
+            background-color: rgb(127, 127, 127);
+            width: 80%;
+            height: 1500px;
+            margin: auto;
+            padding-top: 80px;
+        }
+        #banner{
+            width: 100%;
+            height: 500px;
+            background-image: url(./svg-export/123.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+        #circle{
+            width: 100px;
+            height: 100px;
+            /* background-color: yellowgreen; */
+            position: absolute;
+            bottom: -50px;
+            left: 50px;
+            /* 圓形 */
+            border-radius: 50%;
+            background-image: url(./CAT.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #circle-1{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-radius: 50%;
+            background-image: url(./svg-export/1.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #name{
+            font-size: 32px;
+            position: relative;
+            left: 180px;
+        }
+        #friends{
+            font-size: 15px;   
+        }
+        #substitute{
+            width: 150px;
+            height: 30px;
+            background-color: rgba(50, 50, 50, 0.5);
+            position: relative;
+            left: 83%;
+            top: 80%;
+            font-size: 15px;
+            color: white;
+            text-align: right;
+            line-height: 30px;
+        }
+        #substitute-photo{
+            width: 20px;
+            height: 20px;
+            background-image: url(./svg-export/TNtxzgU79Ci.png);
+            background-repeat: repeat;
+            background-size: cover;
+            position: relative;
+            bottom: 25px;
+        }
+        #title-page{
+            width: 120px;
+            height: 30px;
+            background-color: rgba(50, 50, 50, 0.5);
+            position: relative;
+            left: 85%;
+            top: 85%;
+            font-size: 15px;
+            color: white;
+            text-align:right;
+            line-height: 30px;
+        }
+        #title-page-photo{
+            width: 20px;
+            height: 20px;
+            background-image: url(./svg-export/1.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            bottom: 25px;
+        }
+        #update{
+            width: 150px;
+            height: 30px;
+            background-color: rgba(0, 0, 225, 0.5);
+            position: relative;
+            left: 55%;
+            top: 85%;
+            font-size: 15px;
+            color: white;
+            text-align:right;
+            line-height: 30px;
+        }
+        #update-photo{
+            width: 20px;
+            height: 20px;
+            background-image: url(./svg-export/svgexport-14.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            bottom: 25px;
+        }
+        #Profile{
+            width: 120px;
+            height: 30px;
+            background-color: rgba(50, 50, 50, 0.5);
+            position: relative;
+            left: 70%;
+            bottom: 30px;
+            font-size: 15px;
+            color: white;
+            text-align:right;
+            line-height: 30px;
+        }
+        #Profile-photo{
+            width: 20px;
+            height: 20px;
+            background-image: url(./svg-export/pen.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            bottom: 25px;
+        }
+        #button{
+            width: 35px;
+            height: 35px;
+            background-image: url(./svg-export/svgexport-46.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            bottom: 62px;
+            left: 82%;
+            background-color: rgb(50, 50, 50);
+            border-radius: 25%;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <div id="nav-circle-1"></div>
+        <div id="nav-search">
+            <div id="search1"></div>
+        </div>
+        <div id="nav-circle-friends"></div>
+        <div id="nav-circle-video"></div>
+        <div id="nav-circle-shop"></div>
+        <div id="nav-circle-5"></div>
+        <div id="notify"></div>
+        <div id="nav-circle-7"></div>
+        <div id="nav-circle-8"></div>
+        <div id="nav-circle-9"></div>
+
+    </div>
+    <div id="all">
+        <div id="banner">
+            <div id="circle">
+                <div id="circle-1"></div>
+            </div>
+            <div id="substitute">
+                使用虛擬替身建立
+                <div id="substitute-photo"></div>
+            </div>
+            <div id="title-page">
+                編輯封面相片
+                <div id="title-page-photo"></div>
+            </div>
+        </div>
+        <div id="name">
+            Yang<br><span id="friends">123位朋友</span>
+            <div id="update">
+                新增到現實動態
+                <div id="update-photo"></div>
+            </div>
+            <div id="Profile">
+                編輯個人檔案
+                <div id="Profile-photo"></div>
+            </div>
+            <div id="button"></div>
+        </div>
+    </div>
+</body>
+</html>

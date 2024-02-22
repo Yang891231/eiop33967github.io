@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid;
+            /* 雙線*/
+            /* border-collapse: separate; */
+            /* 單線*/
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        body {
+            background-color: rgb(200, 200, 200);
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            font-size: 24px;
+            margin-left: 40px;
+        }
+
+        .BMI {
+            margin: auto;
+        }
+
+        .btn {
+            width: 100px;
+            height: 50px;
+            font-size: 32px;
+        }
+
+        #my-height,
+        #my-kg {
+            width: 200px;
+            height: 30px;
+            font-size: 24px;
+        }
+
+        .head {
+            text-align: center;
+            font-size: 48px;
+        }
+
+        .change-color {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="BMI">
+        <div class="head">BMI值計算<br></div>
+        <div class="header">BMI值計算公式: BMI = 體重(公斤) / 身高平方(公尺)<br><br></div>
+        <input type="radio" name="gender" id="male" value="male"><label for="male">男性</label>
+        <input type="radio" name="gender" id="female" value="female"><label for="female">女性</label>
+
+        <p>
+            身高 : <input type="number" id="my-height" class="cm"> (公分) <br><br>
+            體重 : <input type="number" id="my-kg" class="kg"> (公斤)
+        </p>
+        <button class="btn clear">清除</button>
+        <button class="btn calculate">計算</button>
+        <p>
+            BMI結果 : <span class="result"> </span>
+        </p>
+        <table>
+            <!-- 表頭 -->
+            <thead>
+                <!-- 表頭列 table row -->
+                <tr>
+                    <!-- 表頭欄位 table head column -->
+                    <th></th>
+                    <th>男性</th>
+                    <th>女性</th>
+                </tr>
+            </thead>
+            <!-- 表格主要內容 -->
+            <tbody>
+                <!-- 表格內容欄位 table head column  -->
+                <tr>
+                    <td class="bmi">&nbsp;體重過輕&nbsp;</td>
+                    <td class="male-weight">&lt; 18.5</td>
+                    <td class="female-weight">&lt; 18.5</td>
+                </tr>
+                <tr>
+                    <td class="bmi">&nbsp;正常範圍&nbsp;</td>
+                    <td class="male-weight">&nbsp;18.5 ≦ BMI &lt;24 &nbsp;</td>
+                    <td class="female-weight">&nbsp;18.5 ≦ BMI &lt;24 &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="bmi">&nbsp;體重過重&nbsp;</td>
+                    <td class="male-weight">&nbsp;24 ≦ BMI &lt; 27&nbsp;</td>
+                    <td class="female-weight">&nbsp;24 ≦ BMI &lt; 27&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="bmi">&nbsp;輕度肥胖&nbsp;</td>
+                    <td class="male-weight">&nbsp;27 ≦ BMI &lt; 30 &nbsp;</td>
+                    <td class="female-weight">&nbsp;27 ≦ BMI &lt; 30 &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="bmi">&nbsp;中度肥胖&nbsp;</td>
+                    <td class="male-weight">&nbsp;30 ≦ BMI &lt; 35&nbsp;</td>
+                    <td class="female-weight">&nbsp;30 ≦ BMI &lt; 35&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="bmi">&nbsp;重度肥胖&nbsp;</td>
+                    <td class="male-weight">&nbsp;BMI ≧ 35 &nbsp;</td>
+                    <td class="female-weight">&nbsp;BMI ≧ 35 &nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let myHeight = document.querySelector('.cm');
+        let myKg = document.querySelector('.kg');
+        let clearBtn = document.querySelector('.clear');
+        let calculate = document.querySelector('.calculate');
+        let result = document.querySelector('.result');
+
+        let light = document.querySelector('.too-light');
+        let maleWeight = document.querySelectorAll('.male-weight');
+        let femaleWeight = document.querySelectorAll('.female-weight');
+        let BMI = document.querySelectorAll('.bmi');
+
+
+        calculate.addEventListener('click', function () {
+            let changeColor = document.querySelectorAll('.change-color');
+
+            let gender = document.querySelector('input[name="gender"]:checked');
+
+            let bmi = 0;
+            let kg = myKg.value;
+            let height = myHeight.value;
+            if (changeColor[0]) {
+                changeColor[0].classList.remove('change-color');
+                changeColor[1].classList.remove('change-color');
+            }
+
+            if (height == '' || kg == '') {
+                alert('請把全部選項都輸入');
+            } else if (!gender) {
+                alert('請把全部選項都輸入');
+            } else {
+                bmi = (kg * 1) / ((height * 1 / 100) * (height * 1 / 100));
+                result.innerHTML = bmi.toFixed(2);
+                if (bmi.toFixed(2) < 18.5 && gender.value == 'male') {
+                    BMI[0].classList.add('change-color');
+                    maleWeight[0].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 18.5 && gender.value == 'female') {
+                    BMI[0].classList.add('change-color');
+                    femaleWeight[0].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 24 && gender.value == 'male') {
+                    BMI[1].classList.add('change-color');
+                    maleWeight[1].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 24 && gender.value == 'female') {
+                    BMI[1].classList.add('change-color');
+                    femaleWeight[1].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 27 && gender.value == 'male') {
+                    BMI[2].classList.add('change-color');
+                    maleWeight[2].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 27 && gender.value == 'female') {
+                    BMI[2].classList.add('change-color');
+                    femaleWeight[2].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 30 && gender.value == 'male') {
+                    BMI[3].classList.add('change-color');
+                    maleWeight[3].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 30 && gender.value == 'female') {
+                    BMI[3].classList.add('change-color');
+                    femaleWeight[3].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 35 && gender.value == 'male') {
+                    BMI[4].classList.add('change-color');
+                    maleWeight[4].classList.add('change-color');
+                } else if (bmi.toFixed(2) < 35 && gender.value == 'female') {
+                    BMI[4].classList.add('change-color');
+                    femaleWeight[4].classList.add('change-color');
+                } else if (bmi.toFixed(2) > 35 && gender.value == 'male') {
+                    BMI[5].classList.add('change-color');
+                    maleWeight[5].classList.add('change-color');
+                } else {
+                    BMI[5].classList.add('change-color');
+                    femaleWeight[5].classList.add('change-color');
+                }
+            }
+
+        })
+        clearBtn.addEventListener('click', function () {
+            myKg.value = '';
+            myHeight.value = '';
+            result.innerHTML = '';
+        })
+
+    </script>
+</body>
+
+</html>

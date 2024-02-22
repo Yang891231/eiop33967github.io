@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兵役</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 200px;
+            font-size: 32px;
+            background-color: rgb(200, 200, 200);
+        }
+
+        .check {
+            width: 300px;
+            font-size: 32px;
+        }
+        .age{
+            font-size: 32px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 任務需求
+        服兵役問題
+        假設男性滿18歲必須要服兵役
+        兩個輸入框
+        一個性別
+        一個年齡
+        一個查詢=>按下去查詢
+        一個顯示結果 -->
+    <div>
+        性別:
+        <input id="male" type="radio" name="gender" value="男"> <label for="male"> 男 </label>
+        <input id="female" type="radio" name="gender" value="女"> <label for="female"> 女 </label>
+    </div>
+
+    <p>
+        年齡:
+        <select class="age">
+            <!-- option[value="$@11"]{$@11}*20 -->
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+        </select>
+    </p>
+    <button class="check">查詢</button>
+    <div>結果:
+        <span class="result"></span>
+    </div>
+
+    <script>
+
+        let checkBtn = document.querySelector('.check');
+        // 匿名函式
+        checkBtn.addEventListener('click', function () {
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let age = document.querySelector('.age');
+            let result = document.querySelector('.result');
+            
+            // 性別還沒選
+            if (!gender) {
+                alert('請選擇性別！');
+                // 返回
+                return;
+            }
+
+            let genderValue = gender.value;
+            let ageValue = age.value;
+
+            // 邏輯運算子
+            // 且 (and) => &&
+            // 或 (or) => ||
+            if (genderValue === '男' && ageValue >= 18) {
+                result.innerText = '你是男性滿18歲，所以要服兵役。'
+            } else if (genderValue === '男' && ageValue < 18) {
+                result.innerText = '你是男性未滿18歲，所以不用服兵役。'
+            } else {
+                result.innerText = '你是女性，所以不用服兵役。'
+            }
+        });
+    </script>
+</body>
+
+</html>
